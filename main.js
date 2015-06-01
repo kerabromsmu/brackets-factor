@@ -6,7 +6,7 @@ define(function (require, exports, module) {
 	CodeMirror.defineSimpleMode("factor", {
 	  // The start state contains the rules that are intially used
 	  start: [
-	    {regex: /(:)(\s+)()}
+	    {regex: /(:)(\s+)()/}
 
 	    // The regex matches the token, the token property contains the type
 	    {regex: /"(?:[^\\]|\\.)*?"/, token: "string"},
