@@ -1,2 +1,2 @@
 # brackets-factor
-factor language highlight mode for Brackets
+[Factor](http://factorcode.org/) language highlight mode for [Brackets](http://brackets.io/)
