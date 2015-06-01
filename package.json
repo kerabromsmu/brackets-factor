@@ -1,0 +1,10 @@
+{
+    "name": "brackets-factor",
+    "title": "Factor Syntax Highlighting for Brackets",
+    "homepage": "https://github.com/kerabromsmu/brackets-factor",
+    "description": "Provides Factor syntax highlighting.",
+    "version": "0.1.0",
+    "author": "Dimage Sapelkin (http://dimage.sharkrazor.net/en/blog/)",
+    "license": "MIT",
+    "keywords": ["factor", "concatenative", "forth", "syntax", "highlighting"]
+}
