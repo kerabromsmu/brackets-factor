@@ -11,7 +11,9 @@ define(function (require, exports, module) {
 	    // strings """, multiline --> state
 	    {regex: /"""/, token: "string", next: "string3"},
 	    {regex: /"/, token: "string", next: "string"},
-	    // numbers: dec, hex, unicode, bin
+	    // numbers: dec, hex, unicode, bin, fractional, complex
+	    {regex: /(?:[+-]?)(?:0x[0-9,a-f]+)|(?:0o[0-7]+)|(?:0b[0,1]+)/, token: "number"}
+	    {regex: /[+-]?/}
 	    // definition: defining word, defined word, etc
 	    // stack effect: ( words -- words ) --> state
 	    // <constructors>
