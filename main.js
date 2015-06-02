@@ -6,6 +6,18 @@ define(function (require, exports, module) {
 	CodeMirror.defineSimpleMode("factor", {
 	  // The start state contains the rules that are intially used
 	  start: [
+	    // comments
+	    {regex: /#?!.*/, token: "comment"},
+	    // strings """, multiline --> state
+	    {regex: /"/, token: "string", next: "string"},
+	    // numbers: dec, hex, unicode, 
+	    // definition: defining word, defined word, etc
+	    // stack effect: ( words -- words ) --> state
+	    // <constructors>
+	    // vocabulary using --> state
+	    // vocabulary definition/use
+	    // "keywords", incl. : ; t f . [ ] { } defining words
+
 	    {regex: /(:)(\s+)()/}
 
 	    // The regex matches the token, the token property contains the type
@@ -35,6 +47,12 @@ define(function (require, exports, module) {
 	    // mode.
 	    {regex: /<</, token: "meta", mode: {spec: "xml", end: />>/}}
 	  ],
+	  vocabulary: [
+	  ],
+	  string: [
+	  ],
+	  stack: [
+	  ],
 	  // The multi-line comment state.
 	  //comment: [
 	  //  {regex: /.*?\*\//, token: "comment", next: "start"},
@@ -45,7 +63,7 @@ define(function (require, exports, module) {
 	  // all modes, and also directives like dontIndentStates, which are
 	  // specific to simple modes.
 	  meta: {
-	    dontIndentStates: ["comment"],
+	    dontIndentStates: ["start", "vocabulary", "string", "stack"],
 	    lineComment: [ "!", "#!" ]
 	  }
 	});
