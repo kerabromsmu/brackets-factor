@@ -12,18 +12,18 @@ define(function (require, exports, module) {
 	    {regex: /"""/, token: "string", next: "string3"},
 	    {regex: /"/, token: "string", next: "string"},
 	    // numbers: dec, hex, unicode, bin, fractional, complex
-	    {regex: /(?:[+-]?)(?:0x[\d,a-f]+)|(?:0o[0-7]+)|(?:0b[0,1]+)|(?:\d+.?\d*)/, token: "number"}
+	    {regex: /(?:[+-]?)(?:0x[\d,a-f]+)|(?:0o[0-7]+)|(?:0b[0,1]+)|(?:\d+.?\d*)/, token: "number"},
 	    //{regex: /[+-]?/} //fractional
 	    // definition: defining word, defined word, etc
-        {regex: /(:)(\s+)(\S+)/, token: ["keyword", null, "def"]}
+        {regex: /(:)(\s+)(\S+)/, token: ["keyword", null, "def"]},
 	    // stack effect: ( words -- words ) --> state
-        {regex: /\(/, token: "meta", next: "stack"}
+        {regex: /\(/, token: "meta", next: "stack"},
         // vocabulary using --> state
-        {regex: /USING:/, token: "keyword", next: "vocabulary"}
+        {regex: /USING:/, token: "keyword", next: "vocabulary"},
 	    // vocabulary definition/use
-        {regex: /(USE:|IN:)(\s+)(\S+)/, token: ["keyword", null, "variable-2"]}
+        {regex: /(USE:|IN:)(\s+)(\S+)/, token: ["keyword", null, "variable-2"]},
 	    // <constructors>
-        {regex: /<\S+>/, token: "builtin"}
+        {regex: /<\S+>/, token: "builtin"},
 	    // "keywords", incl. ; t f . [ ] { } defining words
         {regex: /;|t|f|if|\.|\[|\]|\{|\}/, token: "keyword"}
         // any id (?)
@@ -56,7 +56,7 @@ define(function (require, exports, module) {
 	    //{regex: /<</, token: "meta", mode: {spec: "xml", end: />>/}}
 	  ],
 	  vocabulary: [
-        {regex: /;/, token: "keyword", next: "start"}
+        {regex: /;/, token: "keyword", next: "start"},
         {regex: /\S+/, token: "variable-2"}
 	  ],
 	  string: [
@@ -68,8 +68,8 @@ define(function (require, exports, module) {
 	  	{regex: /.*/, token: "string"}
 	  ],
 	  stack: [
-        {regex: /\)/, token: "meta", next: "start"}
-        {regex: /--/, token: "meta"}
+        {regex: /\)/, token: "meta", next: "start"},
+        {regex: /--/, token: "meta"},
         {regex: /\S+/, token: "atom"}
 	  ],
 	  // The multi-line comment state.
