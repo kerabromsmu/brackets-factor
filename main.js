@@ -9,14 +9,15 @@ define(function (require, exports, module) {
 	    // comments
 	    {regex: /#?!.*/, token: "comment"},
 	    // strings """, multiline --> state
+	    {regex: /"""/, token: "string", next: "string3"},
 	    {regex: /"/, token: "string", next: "string"},
-	    // numbers: dec, hex, unicode, 
+	    // numbers: dec, hex, unicode, bin
 	    // definition: defining word, defined word, etc
 	    // stack effect: ( words -- words ) --> state
 	    // <constructors>
 	    // vocabulary using --> state
 	    // vocabulary definition/use
-	    // "keywords", incl. : ; t f . [ ] { } defining words
+	    // "keywords", incl. ; t f . [ ] { } defining words
 
 	    {regex: /(:)(\s+)()/}
 
@@ -50,6 +51,12 @@ define(function (require, exports, module) {
 	  vocabulary: [
 	  ],
 	  string: [
+	  	{regex: /(?:[^\\]|\\.)*?"/, token: "string", next: "start"},
+	  	{regex: /.*/, token: "string"}
+	  ],
+	  string3: [
+	  	{regex: /(?:[^\\]|\\.)*?"""/, token: "string", next: "start"},
+	  	{regex: /.*/, token: "string"}
 	  ],
 	  stack: [
 	  ],
@@ -63,7 +70,7 @@ define(function (require, exports, module) {
 	  // all modes, and also directives like dontIndentStates, which are
 	  // specific to simple modes.
 	  meta: {
-	    dontIndentStates: ["start", "vocabulary", "string", "stack"],
+	    dontIndentStates: ["start", "vocabulary", "string", "string3", "stack"],
 	    lineComment: [ "!", "#!" ]
 	  }
 	});
