@@ -7,7 +7,8 @@
     "author": "Dimage Sapelkin",
     "license": "MIT",
     "files": [
-        "main.js"
+        "main.js",
+        "factor.js"
     ],
     "keywords": ["factor", "concatenative", "forth", "syntax", "highlighting"]
 }
