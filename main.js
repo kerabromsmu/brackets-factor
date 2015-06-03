@@ -1,9 +1,10 @@
-define(function (require, exports, module) {
+define(function (a,b,c) {
 	'use strict';
 	
 	var LanguageManager = brackets.getModule('language/LanguageManager');
-	
-	CodeMirror.defineSimpleMode("factor", {
+    var cm = brackets.getModule("thirdparty/CodeMirror2/lib/codemirror");	
+
+	cm.defineSimpleMode("factor", {
 	  // The start state contains the rules that are intially used
 	  start: [
 	    // comments
@@ -15,13 +16,13 @@ define(function (require, exports, module) {
 	    {regex: /(?:[+-]?)(?:0x[\d,a-f]+)|(?:0o[0-7]+)|(?:0b[0,1]+)|(?:\d+.?\d*)/, token: "number"},
 	    //{regex: /[+-]?/} //fractional
 	    // definition: defining word, defined word, etc
-        {regex: /(:)(\s+)(\S+)/, token: ["keyword", null, "def"]},
+        {regex: /(\:)(\s+)(\S+)/, token: ["keyword", null, "def"]},
 	    // stack effect: ( words -- words ) --> state
         {regex: /\(/, token: "meta", next: "stack"},
         // vocabulary using --> state
-        {regex: /USING:/, token: "keyword", next: "vocabulary"},
+        {regex: /USING\:/, token: "keyword", next: "vocabulary"},
 	    // vocabulary definition/use
-        {regex: /(USE:|IN:)(\s+)(\S+)/, token: ["keyword", null, "variable-2"]},
+        {regex: /(USE\:|IN\:)(\s+)(\S+)/, token: ["keyword", null, "variable-2"]},
 	    // <constructors>
         {regex: /<\S+>/, token: "builtin"},
 	    // "keywords", incl. ; t f . [ ] { } defining words
@@ -86,6 +87,8 @@ define(function (require, exports, module) {
 	    lineComment: [ "!", "#!" ]
 	  }
 	});
+
+    cm.defineMIME("text/x-factor","factor");
 
 	LanguageManager.defineLanguage('factor', {
 	  name: 'Factor',
