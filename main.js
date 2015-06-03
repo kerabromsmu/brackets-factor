@@ -3,6 +3,8 @@ define(function(require, exports, module) {
 	
 	var LanguageManager = brackets.getModule('language/LanguageManager');
 
+	require("factor");
+
 	LanguageManager.defineLanguage('factor', {
 	  name: 'Factor',
 	  mode: 'factor',
