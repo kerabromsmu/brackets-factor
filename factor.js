@@ -27,7 +27,7 @@ define(function(require, exports, module) {
           {regex: /(?:;|t|f|if|\.|\[|\]|\{|\}|MAIN:)(?=\s|$)/, token: "keyword"},
           // any id (?)
           {regex: /\S+/, token: "variable"},
-    
+
           {
             regex: /(?:\s*)|./,
             token: null
@@ -77,7 +77,7 @@ define(function(require, exports, module) {
           var stDef = mD[state.state];
           var stMore = state.more;
           //console.log(stMore);
-          if (stMore && stMore.length>0) { 
+          if (stMore && stMore.length>0) {
             //console.log(state.words[0] + " -" + state.more[0] + "- " + state.state);
             stream.match(state.words.shift());
             return state.more.shift(); 

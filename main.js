@@ -13,5 +13,5 @@ define(function(require, exports, module) {
 	  lineComment: ['!', '#!']
 	});     
 	
-	console.log('Factor syntax highlighting loaded.');
+	//console.log('Factor syntax highlighting loaded.');
 });
