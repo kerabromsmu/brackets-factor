@@ -24,12 +24,12 @@ define(function(require, exports, module) {
           // <constructors>
           {regex: /<\S+>/, token: "builtin"},
           // "keywords", incl. ; t f . [ ] { } defining words
-          {regex: /;|t|f|if|\.|\[|\]|\{|\}|MAIN:/, token: "keyword"},
+          {regex: /(?:;|t|f|if|\.|\[|\]|\{|\}|MAIN:)(?=\s|$)/, token: "keyword"},
           // any id (?)
           {regex: /\S+/, token: "variable"},
     
           {
-            regex: /./,
+            regex: /(?:\s*)|./,
             token: null
           }
         ],
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
           {regex: /;/, token: "keyword", next: "start"},
           {regex: /\S+/, token: "variable-2"},
           {
-            regex: /./,
+            regex: /(?:\s*)|./,
             token: null
           }
         ],
@@ -54,7 +54,7 @@ define(function(require, exports, module) {
           {regex: /--/, token: "meta"},
           {regex: /\S+/, token: "variable-3"},
           {
-            regex: /./,
+            regex: /(?:\s*)|./,
             token: null
           }
         ],
@@ -70,23 +70,36 @@ define(function(require, exports, module) {
 
       return {
           startState: function() {
-            return {state:"start", more:null};
+            return {state:"start", more:null, words:null};
           },
     
         token: function(stream, state) {
           var stDef = mD[state.state];
           var stMore = state.more;
-          if (stMore && stMore.length>0) return state.more.shift(); else state.more = null;
+          console.log(stMore);
+          if (stMore && stMore.length>0) { 
+            console.log(state.words[0] + " -" + state.more[0] + "- " + state.state);
+            stream.match(state.words.shift());
+            return state.more.shift(); 
+          } else { 
+            state.words = null;
+            state.more = null; 
+          }
           for (var idx in stDef) {
             var rule = stDef[idx], rx = new RegExp("^" + rule.regex.source), tk = rule.token, nx = rule.next || state.state;
-            var a = stream.match(rx);
-            if (a != null) {
-              console.log(a[0] + " -" + tk + "- " + state.state);
+            if (tk) tk = tk.slice(0); // make a copy of the string to avoid mutilating the initial string
+            var a = stream.match(rx, false);
+            if (a) {
               state.state = nx;
               if (a.length > 1) {
                 state.more = tk;
+                state.words = a.slice(2);
+                console.log(a[1] + " @@ " + state.words + " -" + tk + "- " + state.state);
+                stream.match(a[1]);
                 return state.more.shift();
               }
+              console.log(a[0] + " -" + tk + "- " + state.state);
+              stream.match(a[0]);
               return tk;
             }
           }
