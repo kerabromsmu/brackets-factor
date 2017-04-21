@@ -3,7 +3,7 @@
     "title": "Factor Syntax Highlighting",
     "homepage": "https://github.com/kerabromsmu/brackets-factor",
     "description": "Provides Factor syntax highlighting.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Dimage Sapelkin",
     "license": "MIT",
     "files": [
